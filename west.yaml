@@ -1,0 +1,20 @@
+manifest:
+  remotes:
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+
+  projects:
+    - name: zephyr
+      remote: zephyrproject-rtos
+      revision: v3.7.0
+      import:
+        name-allowlist:
+          - cmsis
+          - hal_infineon
+          - airoc-connectivity-stack
+          - mbedtls
+          - tinycbor
+          - zcbor
+
+  self:
+    path: psoc_062_4343W

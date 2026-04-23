@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../zephyrproject/zephyr/boards/infineon/cy8cproto_062_4343w"
+		},
+		{
+			"path": "../../zephyrproject/zephyr/modules/hal_infineon"
+		}
+	],
+	"settings": {}
+}

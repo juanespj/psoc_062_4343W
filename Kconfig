@@ -1,0 +1,12 @@
+mainmenu "My Blinky Project"
+
+menu "App Configuration"
+    config BLINK_SLEEP_MS
+        int "Sleep time in milliseconds"
+        default 1000
+        range 100 5000
+        help
+            Time to sleep between toggling the LED.
+endmenu
+
+source "Kconfig.zephyr"
