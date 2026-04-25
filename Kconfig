@@ -19,6 +19,38 @@ menu "App Configuration"
         default ""
         help
             WPA2 passphrase for station connection.
+
+    config MQTT_BROKER_HOST
+        string "MQTT broker host"
+        default "test.mosquitto.org"
+        help
+            Hostname or IPv4 address of the MQTT broker.
+
+    config MQTT_BROKER_PORT
+        int "MQTT broker port"
+        default 1883
+        range 1 65535
+        help
+            MQTT broker TCP port.
+
+    config MQTT_CLIENT_ID
+        string "MQTT client ID"
+        default "psoc6-debug-client"
+        help
+            Client ID used to connect to the MQTT broker.
+
+    config MQTT_DEBUG_TOPIC
+        string "MQTT debug publish topic"
+        default "psoc6/debug"
+        help
+            Topic used for periodic debug messages.
+
+    config MQTT_PUBLISH_INTERVAL_SEC
+        int "MQTT debug publish interval (seconds)"
+        default 10
+        range 1 3600
+        help
+            Interval for publishing periodic debug messages.
 endmenu
 
 source "Kconfig.zephyr"

@@ -74,6 +74,10 @@ Cargo.lock
 # sometimes IDEs and such will litter these target directories as well.
 target/
 
+# Rust CLI local workspace artifacts
+tools/mqtt-test-cli/target/
+tools/mqtt-test-cli/.cargo-home/
+
 # CI output
 compliance.xml
 dts_linter.patch

@@ -110,19 +110,7 @@
         "reveal": "always",
         "panel": "shared"
       }
-    },
-    {
-      "label": "Zephyr: Build and Flash",
-      "dependsOrder": "sequence",
-      "dependsOn": [
-        "Zephyr: Build M4",
-        "Zephyr: Flash (pyocd)"
-      ],
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
     }
+   
   ]
 }
