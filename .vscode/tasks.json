@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Zephyr: Launch Environment",
+      "type": "shell",
+      "command": "zephyr_launch.bat",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false
+      }
+    },
+    {
+      "label": "Zephyr: Export Paths",
+      "type": "shell",
+      "command": "wsl bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && echo ZEPHYR_BASE=$ZEPHYR_BASE && python --version\"",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Zephyr: Build M0",
+      "type": "shell",
+      "command": "wsl bash -lc \"cd ~/projects/psoc_062_4343W && export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w_m0\"",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Zephyr: Build M4",
+      "type": "shell",
+      "command": "wsl bash -lc \"cd ~/projects/psoc_062_4343W && export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w\"",
+      "group": "build",
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Zephyr: Flash (pyocd)",
+      "type": "shell",
+      "command": "wsl bash -lc \"cd ~/projects/psoc_062_4343W && export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west flash -r pyocd\"",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}
