@@ -4,7 +4,7 @@
     {
       "label": "Zephyr: Launch Environment",
       "type": "shell",
-      "command": "zephyr_launch.bat",
+      "command": "bash -lc \"source ~/zephyrproject/.venv/bin/activate && export ZEPHYR_BASE=~/zephyrproject/zephyr && west --version && python --version\"",
       "runOptions": {
         "runOn": "folderOpen"
       },
@@ -17,16 +17,19 @@
     {
       "label": "Zephyr: Export Paths",
       "type": "shell",
-      "command": "wsl bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && echo ZEPHYR_BASE=$ZEPHYR_BASE && python --version\"",
+      "command": "bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && echo ZEPHYR_BASE=$ZEPHYR_BASE && python --version\"",
       "presentation": {
         "reveal": "always",
         "panel": "shared"
       }
     },
     {
-      "label": "Zephyr: Build M0",
+      "label": "Zephyr: Clean and Build",
       "type": "shell",
-      "command": "wsl bash -lc \"cd ~/projects/psoc_062_4343W && export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w_m0\"",
+      "command": "bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w --pristine\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": {
         "kind": "build",
         "isDefault": true
@@ -40,10 +43,52 @@
       }
     },
     {
+      "label": "Zephyr: Clean and Build",
+      "type": "shell",
+      "command": "bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w --pristine\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+
+    {
+      "label": "Zephyr: Build",
+      "type": "shell",
+      "command": "bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
       "label": "Zephyr: Build M4",
       "type": "shell",
-      "command": "wsl bash -lc \"cd ~/projects/psoc_062_4343W && export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w\"",
-      "group": "build",
+      "command": "bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west build -b cy8cproto_062_4343w\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "problemMatcher": [
         "$gcc"
       ],
@@ -55,8 +100,24 @@
     {
       "label": "Zephyr: Flash (pyocd)",
       "type": "shell",
-      "command": "wsl bash -lc \"cd ~/projects/psoc_062_4343W && export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west flash -r pyocd\"",
+      "command": "bash -lc \"export ZEPHYR_BASE=~/zephyrproject/zephyr && source ~/zephyrproject/.venv/bin/activate && west flash -r pyocd\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Zephyr: Build and Flash",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Zephyr: Build M4",
+        "Zephyr: Flash (pyocd)"
+      ],
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",

@@ -7,6 +7,18 @@ menu "App Configuration"
         range 100 5000
         help
             Time to sleep between toggling the LED.
+
+    config WIFI_SSID
+        string "APP_WIFI_SSID"
+        default ""
+        help
+            SSID for station connection.
+
+    config WIFI_PSK
+        string "APP_WIFI_PSK"
+        default ""
+        help
+            WPA2 passphrase for station connection.
 endmenu
 
 source "Kconfig.zephyr"
