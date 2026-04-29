@@ -1,4 +1,0 @@
-pp heartbeat (wifi iface up=0)
-app heartbeat (wifi iface up=0)
-app heartbeat (wifi iface up=0)
-app heartbeat (wifi iface up=

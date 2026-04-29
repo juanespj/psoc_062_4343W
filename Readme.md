@@ -12,9 +12,9 @@ export ZEPHYR_BASE=~/zephyrproject/zephyr
 
 # Load the Zephyr build extensions (this adds the 'build' command to west)
 source $ZEPHYR_BASE/zephyr-env.sh
-
+export ZEPHYR_BASE=~/zephyrproject/zephyr
 source ~/zephyrproject/.venv/bin/activate
-
+~/zephyrproject/.venv/bin/activate
 # attach probe
 ## Windows
 usbipd list
@@ -77,3 +77,38 @@ sudo usermod -a -G dialout $USER
  build/zephyr/.config  -> merged config
  build/zephyr/include/generated/zephyr/autoconf.h C macros
  build/compile_commands.json
+
+
+ kconfig udp
+     config UDP_REMOTE_HOST
+        string "UDP remote host"
+        default "192.168.1.100"
+        help
+            IPv4 address of the UDP peer to send datagrams to.
+
+    config UDP_REMOTE_PORT
+        int "UDP remote port"
+        default 5005
+        range 1 65535
+        help
+            UDP destination port.
+
+    config UDP_LOCAL_PORT
+        int "UDP local bind port"
+        default 5005
+        range 1 65535
+        help
+            Local port to bind for receiving datagrams.
+
+    config UDP_STACK_SIZE
+        int "UDP thread stack size"
+        default 2048
+        help
+            Stack size for the UDP receive thread.
+
+    config UDP_BUF_SIZE
+        int "UDP buffer size (bytes)"
+        default 256
+        range 64 1500
+        help
+            Size of the send/receive buffer.

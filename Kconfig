@@ -39,7 +39,7 @@ menu "App Configuration"
         help
             Client ID used to connect to the MQTT broker.
 
-    config MQTT_DEBUG_TOPIC
+   config MQTT_DEBUG_TOPIC
         string "MQTT debug publish topic"
         default "psoc6/debug"
         help
@@ -51,6 +51,10 @@ menu "App Configuration"
         range 1 3600
         help
             Interval for publishing periodic debug messages.
+
+
+
+
 endmenu
 
 source "Kconfig.zephyr"
