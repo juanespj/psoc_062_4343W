@@ -1,13 +1,6 @@
+/*
+ * Board-specific devicetree is under boards/<board>.overlay so targets
+ * like native_sim are not broken by PSoC-only node references (uart5, dma).
+ */
 / {
-	chosen {
-		zephyr,sram = &sram0;
-		zephyr,flash = &flash0;
-		zephyr,console = &uart5;
-		zephyr,shell-uart = &uart5;
-	};
-};
-
-&uart5 {
-    dmas = <&dma0 0>, <&dma0 1>;
-    dma-names = "tx", "rx";
 };

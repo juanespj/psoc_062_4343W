@@ -10,5 +10,112 @@
 			"path": "../../zephyrproject/zephyr/modules/hal_infineon"
 		}
 	],
-	"settings": {}
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Monitor: Serial (picocom)",
+				"type": "shell",
+				"command": "bash -lc 'source ${workspaceFolder}/.zephyr-env.sh && ${workspaceFolder}/scripts/monitor.sh'",
+				"presentation": {
+					"reveal": "always",
+					"panel": "new",
+					"focus": true,
+					"close": false
+				},
+				"problemMatcher": [],
+				"group": "none"
+			},
+			{
+				"label": "Build: cy8cproto_062_4343w",
+				"type": "shell",
+				"command": "bash -lc 'source ${workspaceFolder}/.zephyr-env.sh && west build -b cy8cproto_062_4343w ${workspaceFolder}'",
+				"presentation": {
+					"reveal": "always",
+					"panel": "shared",
+					"focus": true
+				},
+				"problemMatcher": [],
+				"group": "build"
+			},
+			{
+				"label": "MQTT: Broker (mosquitto LAN)",
+				"type": "shell",
+				"command": "mosquitto -v -c ${workspaceFolder}/tools/mosquitto-dev.conf",
+				"presentation": {
+					"reveal": "always",
+					"panel": "new",
+					"focus": false,
+					"close": false
+				},
+				"problemMatcher": [],
+				"group": "none"
+			},
+			{
+				"label": "MQTT: Subscribe psoc6/#",
+				"type": "shell",
+				"command": "mosquitto_sub -h localhost -t 'psoc6/#' -v",
+				"presentation": {
+					"reveal": "always",
+					"panel": "new",
+					"focus": true,
+					"close": false
+				},
+				"problemMatcher": [],
+				"group": "none"
+			},
+			{
+				"label": "Flash: west flash (pyocd)",
+				"type": "shell",
+				"command": "bash -lc 'source ${workspaceFolder}/.zephyr-env.sh && cd ${workspaceFolder} && west flash -r pyocd'",
+				"presentation": {
+					"reveal": "always",
+					"panel": "shared",
+					"focus": true
+				},
+				"problemMatcher": [],
+				"group": "none"
+			}
+		]
+	},
+	"settings": {
+		"terminal.integrated.env.osx": {
+			"ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr",
+			"PATH": "${env:HOME}/zephyrproject/.venv/bin:${env:PATH}"
+		},
+		"terminal.integrated.env.linux": {
+			"ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr",
+			"PATH": "${env:HOME}/zephyrproject/.venv/bin:${env:PATH}"
+		},
+		"terminal.integrated.profiles.osx": {
+			"zephyr": {
+				"path": "zsh",
+				"args": ["-l"],
+				"env": {
+					"ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr"
+				}
+			}
+		},
+		"terminal.integrated.profiles.linux": {
+			"zephyr": {
+				"path": "bash",
+				"args": ["-l"],
+				"env": {
+					"ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr"
+				}
+			}
+		},
+		"terminal.integrated.shellIntegration.enabled": true,
+		"terminal.integrated.defaultProfile.osx": "zephyr",
+		"terminal.integrated.defaultProfile.linux": "zephyr",
+		"python.defaultInterpreterPath": "${env:HOME}/zephyrproject/.venv/bin/python",
+		"python.terminal.activateEnvironment": true,
+		"workbench.colorCustomizations": {
+			"statusBar.background": "#6D28D9",
+			"statusBar.foreground": "#F5F3FF",
+			"statusBarItem.hoverBackground": "#5B21B6",
+			"statusBar.noFolderBackground": "#6D28D9",
+			"statusBar.debuggingBackground": "#7C3AED"
+		}
+	}
 }

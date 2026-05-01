@@ -11,8 +11,8 @@ west init
 export ZEPHYR_BASE=~/zephyrproject/zephyr
 
 # Load the Zephyr build extensions (this adds the 'build' command to west)
-source $ZEPHYR_BASE/zephyr-env.sh
 export ZEPHYR_BASE=~/zephyrproject/zephyr
+source $ZEPHYR_BASE/zephyr-env.sh
 source ~/zephyrproject/.venv/bin/activate
 ~/zephyrproject/.venv/bin/activate
 # attach probe
@@ -22,8 +22,9 @@ usbipd bind --busid 1-3
 usbipd attach --wsl --busid 1-3
 ## WSL
 lsusb
-
+## first time build
 west blobs fetch hal_infineon
+west config -d build.board
 
 west build -p always -b nrf52840dk/nrf52840 .
 
@@ -31,7 +32,14 @@ west build -b cy8cproto_062_4343w_m0  # build M0 app
 west build -b cy8cproto_062_4343w  # build for M4
 
 west build -b cy8cproto_062_4343w && west flash
-west config -d build.board
+
+# native_sim (host MQTT / net test) — Linux or WSL only
+# Zephyr POSIX arch is not supported on macOS; CMake will stop with that message.
+# After a successful configure, run the binary with: west build -t run
+# Helper: scripts/build-native-sim.sh
+west build -p always -b native_sim
+west build -t run
+
 # Flashing
 Use pyocd instead of openocd
 The CY8CPROTO board has a KitProg3 onboard. While OpenOCD is the Zephyr default, PyOCD often has much better "out of the box" support for PSoC 6 targets and is less finicky about script paths.
