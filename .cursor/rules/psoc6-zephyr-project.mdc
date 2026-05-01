@@ -1,0 +1,31 @@
+---
+description: PSoC6 Zephyr app — board, layout, build, and Zephyr tree paths
+alwaysApply: true
+---
+
+# PSoC 6 + Zephyr project context
+
+## What this repo is
+
+- Zephyr **application** (not the full Zephyr tree): `west.yaml`, `prj.conf`, `Kconfig`, `src/`, `boards/` overlays.
+- CMake default board: `cy8cproto_062_4343w` (see root `CMakeLists.txt`).
+- App sources: `main.c`, `wifi_module.c`, `mqtt_module.c`.
+
+## Environment
+
+- Source Zephyr + venv before `west`: `source ./.zephyr-env.sh` (must be **sourced**, not executed).
+- Typical layout: `ZEPHYR_BASE` → `~/zephyrproject/zephyr`, venv → `~/zephyrproject/.venv`.
+
+## Build and flash
+
+- Build: `west build -b cy8cproto_062_4343w .` from repo root (after env).
+- Flash: `west flash -r pyocd` (KitProg3; OpenOCD default is often worse on PSoC 6).
+- Blobs if needed: `west blobs fetch hal_infineon`.
+
+## Workspace / multi-root
+
+- The Cursor workspace may include Zephyr board + `hal_infineon` as sibling folders for reference; **application changes** belong in this Git repo unless intentionally patching Zephyr upstream.
+
+## External QSPI flash (AS25HL512T)
+
+- Kit has SMIF/QSPI NOR; Zephyr `infineon,qspi-flash` on this board still needs board-specific HAL (`smif0BlockConfig` / ModusToolbox cycfg). Do not assume DTS-only enables it until that glue exists.

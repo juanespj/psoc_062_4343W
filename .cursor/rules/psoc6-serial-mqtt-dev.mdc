@@ -1,0 +1,26 @@
+---
+description: Serial monitor, MQTT broker, and VS Code tasks for local dev
+alwaysApply: true
+---
+
+# Serial, MQTT, and local tooling
+
+## Serial console
+
+- Zephyr console UART: **115200** baud.
+- Use `./scripts/monitor.sh` — prefers **picocom**; auto-picks `/dev/cu.usbmodem*` on macOS; clears stale `lsof` holders on the port before connect.
+- Picocom exit: **Ctrl-A** then **X**.
+
+## MQTT / networking
+
+- App uses `CONFIG_MQTT_BROKER_HOST` / port from `Kconfig` + `prj.conf`.
+- Many corporate networks **block outbound TCP 1883**; `mqtt_connect` **-116** is often **`-ETIMEDOUT`** to the broker, not a Zephyr bug. Verify from the same LAN with `nc -zv <host> 1883`.
+- **Local Mosquitto on macOS:** default `mosquitto -v` is **localhost-only**. For the board on Wi‑Fi, use `tools/mosquitto-dev.conf` and `mosquitto -v -c tools/mosquitto-dev.conf`, then set `CONFIG_MQTT_BROKER_HOST` to the Mac’s **LAN** IP (not a placeholder).
+
+## VS Code / Cursor tasks
+
+- Workspace defines tasks under `psoc_062_4343W.code-workspace`: serial monitor (sources `.zephyr-env.sh`), optional Mosquitto broker + `mosquitto_sub` for `psoc6/#`, build, flash.
+
+## Credentials
+
+- Do not commit real Wi‑Fi PSKs or broker secrets in `prj.conf`; prefer a **local** `boards/*.conf` or untracked overlay and keep defaults safe for Git.
