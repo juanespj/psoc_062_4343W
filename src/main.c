@@ -4,6 +4,7 @@
 #include <zephyr/logging/log.h>
 #include "mqtt_module.h"
 #include "wifi_module.h"
+#include "uart_rx.h"
 
 #define LED0_NODE DT_NODELABEL(user_led)
 
@@ -42,6 +43,11 @@ int main(void)
 	err = app_mqtt_init();
 	if (err) {
 		LOG_ERR("MQTT module init failed (%d)", err);
+	}
+
+	err = uart_rx_init();
+	if (err) {
+		LOG_ERR("UART RX init failed (%d)", err);
 	}
 
 	while (1) {

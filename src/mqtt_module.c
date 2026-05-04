@@ -192,10 +192,10 @@ void app_mqtt_task(bool net_ready)
 	if (!mqtt_connected && now >= next_connect_ms) {
 		ret = mqtt_try_connect();
 		if (ret) {
-			next_connect_ms = now + 5000;
+			next_connect_ms = now + 2000;
 			return;
 		}
-		next_connect_ms = now + 5000;
+		next_connect_ms = now + 2000;
 	}
 
 	if (client.transport.type == MQTT_TRANSPORT_NON_SECURE && client.transport.tcp.sock >= 0) {
@@ -207,7 +207,7 @@ void app_mqtt_task(bool net_ready)
 		ret = mqtt_publish_debug(net_ready);
 		if (ret) {
 			mqtt_disconnect_cleanup();
-			next_connect_ms = now + 5000;
+			next_connect_ms = now + 2000;
 		}
 		next_publish_ms = now + (CONFIG_MQTT_PUBLISH_INTERVAL_SEC * MSEC_PER_SEC);
 	}
